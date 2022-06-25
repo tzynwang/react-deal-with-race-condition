@@ -1,31 +1,35 @@
-import React, { memo } from 'react'
-import classNames from 'classnames'
-
-import Styles from './index.module.css'
+import React, { memo } from 'react';
+import { HashRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import CssBaseline from '@mui/material/CssBaseline';
+import Stack from '@mui/material/Stack';
+import ContentPage from '@Components/Common/ContentPage';
+import IndexPage from '@Components/Common/IndexPage';
 
 function App(): React.ReactElement {
+  /* Main */
   return (
-    <main className={classNames(Styles.main)}>
-      <div>
-        Hello world, this React APP is created by{' '}
-        <code className={classNames(Styles.mainCode)}>npx create-react-app with template --choffee</code>.
-      </div>
-      <div>
-        Author: Charlie (Tzu Yin) |{' '}
-        <a href="https://github.com/tzynwang" target="_blank" className={Styles.mainAnchor}>
-          GitHub
-        </a>{' '}
-        |{' '}
-        <a href="https://tzynwang.github.io/" target="_blank" className={Styles.mainAnchor}>
-          Blog
-        </a>{' '}
-        |{' '}
-        <a href="https://www.npmjs.com/~tzyn.wang" target="_blank" className={Styles.mainAnchor}>
-          npm Packages
-        </a>
-      </div>
-    </main>
-  )
+    <React.Fragment>
+      <CssBaseline />
+      <Router>
+        <Stack direction="row" spacing={2}>
+          <Link to="/">Index page</Link>
+          <Link to="/typeA/7">contentId: 7</Link>
+          <Link to="/typeB/3">contentId: 3</Link>
+        </Stack>
+        <Switch>
+          <Route path="/typeA/:contentId">
+            <ContentPage />
+          </Route>
+          <Route path="/typeB/:contentId">
+            <ContentPage />
+          </Route>
+          <Route path="/">
+            <IndexPage />
+          </Route>
+        </Switch>
+      </Router>
+    </React.Fragment>
+  );
 }
 
-export default memo(App)
+export default memo(App);
